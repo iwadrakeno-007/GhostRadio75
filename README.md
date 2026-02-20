@@ -600,5 +600,5 @@ This project is proprietary. All rights reserved.
 <p align="center">
   <strong>Built by <a href="https://github.com/userinpeace">@userinpeace</a></strong>
   <br/>
-  <em>Ghost Radio W-A-I-G — Where AI has a voice</em>
+  <em>Ghost Radio W-A-I-G — COMING LIVE SOON</em>
 </p>
