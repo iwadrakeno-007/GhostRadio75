@@ -108,8 +108,8 @@ Every DJ, news anchor, weathercaster, ad executive, and producer is an AI agent 
 │              │   WS: 8765   │                 │                        │
 │  React/Vite  │ Python/aiohttp│ 12 Agents      │  Liquidsoap            │
 │  Three.js    │ StationManager│ Guardian Agent  │  Icecast               │
-│  Zustand     │ 63 Services  │ Action Layer    │  YouTube RTMP          │
-│  TailwindCSS │ 120+ Routes  │ Token Economy   │  Twitch RTMP           │
+│  Zustand     │ 64 Services  │ Action Layer    │  YouTube RTMP          │
+│  TailwindCSS │ 130+ Routes  │ Token Economy   │  Twitch RTMP           │
 └──────┬───────┴──────┬───────┴───────┬─────────┴───────┬────────────────┘
        │              │               │                 │
        │  WebSocket   │   REST API    │  Event Bus      │  Audio Files
@@ -134,7 +134,7 @@ Listener opens browser
     │       │       ├── metrics   (listener count, tips, revenue)
     │       │       └── chat      (agent ↔ human messages)
     │       │
-    │       └── REST :8080/api/* ──→ 120+ API endpoints
+    │       └── REST :8080/api/* ──→ 130+ API endpoints
     │
     └── Hot Clock Loop (runs 24/7):
             │
@@ -381,18 +381,18 @@ Switchable at startup: `python main.py --provider openai`
 ```
 ghost-radio-waig/
 │
-├── main.py                          # Entry point (813 lines)
-├── requirements.txt                 # 25 Python dependencies
+├── main.py                          # Entry point (812 lines)
+├── requirements.txt                 # 23 Python dependencies
 ├── docker-compose.yml               # 10-service container orchestration
 ├── .env.example                     # Environment template
 │
 ├── brain/                           # 🧠 Core AI Engine
-│   ├── config.py                    #   RadioConfig + enums (508 lines)
-│   ├── station_manager.py           #   Central orchestrator (4,353 lines)
+│   ├── config.py                    #   RadioConfig + enums (507 lines)
+│   ├── station_manager.py           #   Central orchestrator (4,352 lines)
 │   ├── prompts_master_waig.py       #   Master prompt templates
 │   │
-│   ├── agents/                      #   🤖 AI Agents (22 files)
-│   │   ├── base_agent.py            #     Abstract SegmentOutput/AgentContext (327 lines)
+│   ├── agents/                      #   🤖 AI Agents (20 files)
+│   │   ├── base_agent.py            #     Abstract SegmentOutput/AgentContext (326 lines)
 │   │   ├── cognitive_mixin.py       #     CognitiveAgentMixin (memory, ReAct, tools)
 │   │   ├── dj_static.py             #     DJ Static — The Chill Philosopher
 │   │   ├── news_unit7.py            #     Unit 7 — The Paranoid News Bot
@@ -407,6 +407,9 @@ ghost-radio-waig/
 │   │   ├── r_and_d_team.py          #     R&D Team — Dr. Nova Chen
 │   │   ├── assistant_manager.py     #     Assistant Manager — Kai Rodriguez
 │   │   ├── ravan.py                 #     RAVAN — Central Intelligence Hub (1,328 lines)
+│   │   ├── professional_agent.py    #     Professional agent mixin
+│   │   ├── agent_persistence.py     #     Agent state persistence
+│   │   ├── admin_chat_models.py     #     Admin chat data models
 │   │   ├── show_director.py         #     Show Director
 │   │   └── quality_master.py        #     Quality Master
 │   │
@@ -424,11 +427,11 @@ ghost-radio-waig/
 │   │   ├── admin_routes_production.py #   Admin panel endpoints (53 routes)
 │   │   └── agent_chat_routes.py     #     Agent chat API (6 endpoints)
 │   │
-│   ├── services/                    #   ⚙️ Service Layer (63 files)
-│   │   ├── llm_service.py           #     Multi-LLM client (360 lines)
-│   │   ├── voice_service.py         #     ElevenLabs + edge-tts + fallback (568 lines)
-│   │   ├── hot_clock.py             #     Hot Clock broadcast format (964 lines)
-│   │   ├── health_registry.py       #     ServiceHealthRegistry (504 lines)
+│   ├── services/                    #   ⚙️ Service Layer (64 files)
+│   │   ├── llm_service.py           #     Multi-LLM client (359 lines)
+│   │   ├── voice_service.py         #     ElevenLabs + edge-tts + fallback (567 lines)
+│   │   ├── hot_clock.py             #     Hot Clock broadcast format (963 lines)
+│   │   ├── health_registry.py       #     ServiceHealthRegistry (503 lines)
 │   │   ├── broadcast.py             #     WebSocket broadcast
 │   │   ├── monetization.py          #     Tips, sponsor, revenue tracking
 │   │   ├── stripe_service.py        #     Stripe payment integration
@@ -445,7 +448,7 @@ ghost-radio-waig/
 │   │   ├── stream_manager.py        #     YouTube/Twitch audio streaming
 │   │   ├── video_stream_service.py  #     Browser → FFmpeg → RTMP
 │   │   ├── hud_sync_service.py      #     Real-time frontend sync
-│   │   └── ...                      #     (63 services total)
+│   │   └── ...                      #     (64 services total)
 │   │
 │   ├── broadcast_engine/            #   📻 Broadcast Engine (12 files)
 │   │   ├── hot_clock.py             #     60-min show with sponsor/tipper integration
@@ -459,7 +462,7 @@ ghost-radio-waig/
 │   │   └── status_reporter.py       #     Extracted status/metrics reporting
 │   │
 │   ├── security/                    #   🔒 Security Engine (4 files)
-│   │   ├── security_engine.py       #     Orchestrator (489 lines)
+│   │   ├── security_engine.py       #     Orchestrator (488 lines)
 │   │   ├── attack_signatures.py     #     100+ attack patterns
 │   │   ├── ids_ips.py               #     Intrusion detection/prevention
 │   │   └── phishing_detector.py     #     Phishing URL detection
@@ -477,11 +480,11 @@ ghost-radio-waig/
 │   │   └── sponsor_models.py        #     Sponsor/ad models
 │   │
 │   └── database/                    #   💾 Database Layer
-│       ├── models.py                #     SQLAlchemy ORM (12 tables, 418 lines)
+│       ├── models.py                #     SQLAlchemy ORM (12 tables, 417 lines)
 │       └── repository.py            #     Data access layer
 │
 ├── framework/                       # 🕸️ SwarmOS Framework (52 files, 18,800+ lines)
-│   ├── bootstrap.py                 #   SwarmOS assembly (366 lines)
+│   ├── bootstrap.py                 #   SwarmOS assembly (365 lines)
 │   ├── adapters.py                  #   Engine → pipeline adapters
 │   ├── core/                        #   EventBus, AgentRegistry, Pipeline, Subsumption
 │   ├── actions/                     #   ActionRegistry, Executor, Guard, Pipeline
@@ -527,14 +530,14 @@ ghost-radio-waig/
 │   ├── nginx-prod.conf              #   Production proxy
 │   └── prometheus.yml               #   Metrics config
 │
-├── tests/                           # 🧪 Test Suite (14 files)
+├── tests/                           # 🧪 Test Suite (17 files)
 │   ├── test_root_cause_fixes.py     #   Root-cause fix verification (57 tests)
 │   ├── test_comprehensive_suite.py  #   Architecture verification (90+ tests)
 │   ├── test_innovations3.py         #   Innovation engine tests
 │   ├── test_selenium_full.py        #   Full E2E with Selenium
 │   └── ...
 │
-├── .github/workflows/ci.yml        # 🔄 CI/CD Pipeline (198 lines)
+├── .github/workflows/ci.yml        # 🔄 CI/CD Pipeline (197 lines)
 ├── tools/                           # 🔧 Utilities (music generation, API testing)
 └── scripts/                         # 📜 Deployment scripts
 ```
@@ -621,7 +624,7 @@ python main.py --provider gemini
 
 When you run `python main.py`, the following systems initialize:
 
-1. aiohttp API server on port 8080 (120+ endpoints)
+1. aiohttp API server on port 8080 (130+ endpoints)
 2. WebSocket broadcast server on port 8765
 3. All 12 AI agents register with SwarmOS
 4. Guardian Agent activates (Operative mode)
@@ -641,7 +644,7 @@ When you run `python main.py`, the following systems initialize:
 | Health | `/health`, `/status`, `/metrics`, `/current` | 4 | Station health, uptime, Prometheus metrics |
 | Service Health | `/api/health/services` | 1 | Tier-based service health dashboard |
 | Guardian | `/api/guardian/*` | 8 | Guardian stats, dashboard, threat log, controls |
-| SwarmOS | `/api/swarm/*` | 6 | Pipeline stats, agent registry, event bus |
+| SwarmOS | `/api/swarm/*` | 5 | Pipeline stats, agent registry, event bus |
 | Actions | `/api/actions/*` | 3 | Action stats, audit log, action registry |
 | Agents | `/api/agents` | 1 | All 12 agents with status, workload, lastActive |
 | RAVAN | `/ravan/*` | 23 | Intelligence hub, web search, pattern analysis |
@@ -651,7 +654,7 @@ When you run `python main.py`, the following systems initialize:
 | Admin | `/admin/*` | 53 | Content moderation, analytics, system management |
 | Agent Chat | `/api/agents/*` | 6 | Admin ↔ agent NLP communication |
 | WebSocket | `/ws/hud`, `/ws/stream-capture` | 2 | Real-time HUD sync, video stream capture |
-| **Total** | | **~132** | |
+| **Total** | | **~130** | |
 
 ### Key Endpoints
 

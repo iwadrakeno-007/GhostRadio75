@@ -1,0 +1,29 @@
+aiohttp==3.9.1
+aiofiles==23.2.1
+python-dotenv==1.0.0
+pydantic==2.5.0
+sqlalchemy==2.0.36
+alembic==1.12.1
+google-generativeai==0.3.0
+requests==2.31.0
+stripe==7.8.0
+websockets==12.0
+pyyaml==6.0.1
+python-multipart==0.0.6
+mutagen==1.47.0
+edge-tts==7.2.7
+# Auth & security
+bcrypt==4.1.2
+PyJWT==2.8.0
+# LLM providers
+openai==1.6.0
+anthropic==0.8.0
+# Data & caching
+redis==5.0.1
+numpy==1.26.2
+# Music generation (optional, for tools/)
+# audiocraft and torch installed separately on GPU instances
+# Testing (move to dev requirements in production)
+pytest==7.4.3
+pytest-asyncio==0.23.2
+pytest-cov==4.1.0
